@@ -1,11 +1,17 @@
 <template>
-    <div id="navbar-cover-background">
-        <div id="navbar" class="pos-absolute" > 
-            <NavbarTitle/>
-            <NavbarOption/>
+    <div v-if="headerTop" id="navbar-cover-background">
+        <div class="navbar pos-absolute" > 
+            <NavbarTitle :headerTop="headerTop"/>
+            <NavbarOption :headerTop="headerTop"/>
         </div>     
         <img src="../assets/cover.jpg" >
     </div>
+
+    <div v-else id="navbar-top" class="navbar-top pos-sticky">
+        <NavbarTitle :headerTop="headerTop"/>
+        <NavbarOption :headerTop="headerTop"/>
+    </div>
+    
 </template>
 
 <script>
@@ -14,11 +20,28 @@ import NavbarTitle from "./NavbarTitle.vue"
 
 export default {
     name: "Header",
+    
+    data() {
+        return {
+            toStickyHeight : null
+        }
+    },
 
     components: {
         NavbarOption,
         NavbarTitle
-    }
+    },
+
+    computed: {
+        headerTop(){
+            if (this.$route.path != '/'){
+                return false
+            }else{
+                return true
+            }
+        },
+    },
+
 }
 </script>
 
@@ -36,7 +59,7 @@ export default {
     visibility: hidden;
 }
 
-#navbar{
+.navbar{
     height: auto;
     width: 90%;
     display: flex;
@@ -54,12 +77,25 @@ export default {
 }
 
 .pos-sticky{
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
+
 }
 
+.navbar-top {
+    padding-left: 5%;
+    padding-right: 5%;
+    height: auto;
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: white;
+    z-index: 1;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
 
 
 </style>

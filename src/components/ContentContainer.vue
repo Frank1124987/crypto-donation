@@ -1,9 +1,14 @@
 <template>
+    
     <h1>{{ info.title }}</h1>
-    <ContentItem 
-        v-for="item in info.item" 
-        :key="item.id" 
-        :item="item"/>
+    <div :class="[classContainer]">
+        <ContentItem 
+            v-for="item in info.item" 
+            :key="item.id" 
+            :item="item"
+            :className="info.className" 
+            />
+    </div>
 
 </template>
 
@@ -20,6 +25,12 @@ export default {
         }
     },
 
+    data () {
+        return {
+            classContainer : 'container-' + this.info.className 
+        }
+    },
+
     components: {
         ContentItem
     }
@@ -28,5 +39,22 @@ export default {
 </script>
 
 <style scoped>
+.container-donation-project {
+    display: flex;
 
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    scrollbar-width: none;
+}
+.container-donation-project::-webkit-scrollbar {
+    display: none;
+}
+
+.container-nft-item {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}
 </style>
