@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .item {
-    padding: 1% 2% 1% 0;
+    margin: 1% 2% 1% 0;
     display: flex;
     cursor: pointer;
     flex: 0 0 auto;
@@ -46,13 +46,13 @@ export default {
 
 img {
     border-radius: 15px;
-    margin: 10px 10px 10px 0;
+    margin: 0 10px 10px 0;
 }
 
 /* Donation Project Style */
 .donation-project {
     flex-direction: column;
-    width: 33%;
+    width: 31%;
 }
 
 .donation-project img {
@@ -64,7 +64,7 @@ img {
 .nft-item{
     justify-content: start;
     align-items: center;
-    width: 20%;
+    width: 18%;
 }
 .nft-item img{
     width: 60px;

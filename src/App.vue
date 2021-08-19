@@ -1,10 +1,8 @@
 <template>
-    <Header/>
-
-    <div id="content">
+    <Header :contentTopPos="contentTopPos"/>
+    <div id="content" ref="content">
         <router-view/>
     </div>
-
     <Footer/>
 </template>
  
@@ -14,10 +12,30 @@ import Footer from "./components/Footer.vue"
 
 
 export default {
-  components: {
-    Header,
-    Footer
-  }
+    data() {
+        return {
+          contentTopPos: 0,
+        }
+    },
+
+    components: {
+        Header,
+        Footer
+    },
+
+    methods: {
+        handleScroll(){
+            this.contentTopPos = this.$refs.content.getBoundingClientRect().top
+        }
+    },
+
+    created() {
+        window.addEventListener("scroll", this.handleScroll)
+    },
+
+    destroyed() {
+        window.removeEventListener("scroll", this.handleScroll)
+    },
 }
 </script>
 
