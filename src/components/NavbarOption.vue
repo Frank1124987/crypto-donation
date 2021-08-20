@@ -4,9 +4,9 @@
             我要捐款
         </div>
         <div class="navbar-option-seperation"></div>
-        <div class="navbar-option" >
-            各項專案
-        </div>
+        <router-link to="/donation-projects" class="navbar-option">
+            各項專案 
+        </router-link>
         <div class="navbar-option-seperation"></div>
         <div class="navbar-option" >
             捐款使用方向
