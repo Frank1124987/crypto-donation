@@ -1,19 +1,19 @@
 <template>
-    
-    <h1>{{ info.title }}</h1>
-    <div :class="[classContainer]">
-        <ContentItem 
-            v-for="item in info.item" 
-            :key="item.id" 
-            :item="item"
-            :className="info.className" 
-            />
+    <div class="block">
+        <h1>{{ info.title }}</h1>
+        <div :class="[classContainer]">
+            <ContentItem 
+                v-for="item in info.item" 
+                :key="item.id" 
+                :item="item"
+                :className="info.className" 
+                />
+        </div>
     </div>
-
 </template>
 
 <script>
-import ContentItem from "./ContentItem.vue"
+import ContentItem from "../content/ContentItem.vue"
 
 export default {
     name: "ContentContainer",
@@ -56,5 +56,9 @@ export default {
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
+}
+
+.block{
+    margin-bottom: 4%;
 }
 </style>
