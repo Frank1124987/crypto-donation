@@ -8,8 +8,10 @@
     </div>
 
     <div v-else class="navbar-top pos-sticky" > 
+        <router-link to="/">
             <NavbarTitle :headerTop="headerTop"/>
-            <NavbarOption :headerTop="headerTop"/>
+        </router-link>
+         <NavbarOption :headerTop="headerTop"/>
     </div>   
 
     

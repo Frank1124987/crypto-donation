@@ -21,6 +21,11 @@ const routes = [
     
   },
   {
+    path: '/NFT/:id',
+    name: 'NFT-list',
+    component: () => import('../views/NFT.vue')
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

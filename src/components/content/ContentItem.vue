@@ -1,5 +1,5 @@
 <template>
-    <div class="item" :class="[className]">
+    <router-link :to="{ name: urlName , params:{id : item.id}}" class="item" :class="[className]">
         <img :src= "require('../../assets' + item.image)" >
         <div class="text-area">
             <div>
@@ -9,7 +9,7 @@
                 <component :is="text" :content="content"/>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -32,7 +32,10 @@ export default {
             type: String,
             required: true
         },
-
+        urlName :{
+            type : String,
+            required: true
+        }
     },
     data() {
         return {

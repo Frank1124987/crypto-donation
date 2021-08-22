@@ -25,6 +25,7 @@ export default {
         const nft_all_info = reactive({
                 title : "最近的NFT",
                 className : "nft-item",
+                urlName: "NFT-list",
                 item : [
                         {id: 1, image: "/NFT_items/image_1.png", title: "A",  summary: "This is good", content: "Complete description for project"},
                         {id: 2, image: "/NFT_items/image_2.png", title: "B",  summary: "This is bad",  content: "Complete description for project"},
@@ -39,6 +40,7 @@ export default {
         const project_all_info = reactive ({
                 title : "募款中專案",
                 className : "donation-project",
+                urlName: "Project",
                 item : [
                         {id: 1, image: '/donation_project/image_1.jpg', title: "SDD", date: {from: '8/24', to: '9/25'}, donation: {current: 100, target: 1000}, summary: "抖內給帥哥", content: "Complete description for project"},
                         {id: 2, image: '/donation_project/image_2.jpg', title: "B", date: {from: '8/24', to: '9/25'}, donation: {current: 500, target: 1000}, summary: "This is bad", content: "Complete description for project"},
@@ -87,4 +89,9 @@ body {
 #content{
     padding: 2% 5% 2% 5%;
 }
+
+ a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+ }
 </style>
