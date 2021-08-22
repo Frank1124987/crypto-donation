@@ -1,10 +1,10 @@
 <template>
-    <div class="chart">
+    <div class="chart" :style="{width: blockWidth}">
         <div>
             <h3>
                 募款日期 : 
                 <br>
-                {{ date.from }} ~ {{ date.to}}
+                {{ date.from }} ~ {{ date.to }}
             </h3>
         </div>
         <div>
@@ -16,11 +16,15 @@
                 <span class="to-go" :style="{ width: toGo + '%'}" ></span>
             </div>
         </div>
+        <div class="block">
+            <Button text="我要捐款" :id="id"/>
+        </div>
     </div>
 </template>
 
 <script>
 import {ref, toRefs, watch, watchEffect} from 'vue'
+import Button from '../Button.vue'
 
 export default {
     props: {
@@ -31,7 +35,18 @@ export default {
         donation: {
             type: Object,
             required: true
+        },
+        id: {
+            type: Number,
+            required: true
+        },
+        blockWidth: {
+            type: String,
+            default: '25%'
         }
+    },
+    components:{
+        Button
     },
     setup(props) {
 
@@ -58,14 +73,17 @@ export default {
     justify-content: start;
 
     width: 25%;
-    padding: 1% 1% 1% 0;
+    padding: 1% 0 1% 0;
 }
 
 h3 {
     margin: 2%;
     margin-left: 0;
 }
-
+.block{
+    margin : 4%;
+    margin-left: 0;
+}
 .donation-progress-bar{
     display: flex;
 

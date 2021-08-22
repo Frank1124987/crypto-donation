@@ -1,6 +1,6 @@
 <template>
     <Header :contentTopPos="contentTopPos"/>
-    <div id="content" ref="top-pos">
+    <div id="content" ref="toppos">
         <router-view/>
     </div>
     <Footer/>
@@ -9,13 +9,20 @@
 <script>
 import Header from "./components/Header.vue"
 import Footer from "./components/Footer.vue"
+import {provide, ref, reactive, onUnmounted} from 'vue'
 
 
 export default {
-    data() {
-        return {
-            contentTopPos: 0,
-            nft_all_info: {
+    components: {
+        Header,
+        Footer
+    },
+
+    setup() {
+        const contentTopPos = ref(0)
+        const toppos = ref(0)
+        
+        const nft_all_info = reactive({
                 title : "最近的NFT",
                 className : "nft-item",
                 item : [
@@ -27,8 +34,9 @@ export default {
                         {id: 6, image: "/NFT_items/image_6.png", title: "F",  summary: "This is fine", content: "Complete description for project"},
                         {id: 7, image: "/NFT_items/image_7.png", title: "G",  summary: "This is fine",  content: "Complete description for project"},
                     ]
-            },
-            project_all_info: {
+            })
+
+        const project_all_info = reactive ({
                 title : "募款中專案",
                 className : "donation-project",
                 item : [
@@ -37,34 +45,26 @@ export default {
                         {id: 3, image: '/donation_project/image_3.png', title: "C", date: {from: '8/24', to: '9/25'}, donation: {current: 300, target: 1000}, summary: "This soso", content: "Complete description for project"},
                         {id: 4, image: '/donation_project/image_4.png', title: "D", date: {from: '8/24', to: '9/25'}, donation: {current: 800, target: 1000}, summary: "This is fine", content: "Complete description for project"}
                         ]
-            }
+            })
+
+        provide('projects_db', project_all_info)
+        provide('nft_db', nft_all_info)
+        
+        // scroll event listener //
+        function handleScroll() {
+            contentTopPos.value = toppos.value.getBoundingClientRect().top
         }
-    },
-    provide(){
+        window.addEventListener("scroll", handleScroll)
+        onUnmounted(() => {
+            window.removeEventListener("scroll", handleScroll)
+        })
+
         return {
-            nft_db : this.nft_all_info,
-            projects_db : this.project_all_info
+            contentTopPos,
+            toppos
         }
     },
 
-    components: {
-        Header,
-        Footer
-    },
-
-    methods: {
-        handleScroll(){
-            this.contentTopPos = this.$refs['top-pos'].getBoundingClientRect().top
-        }
-    },
-
-    created() {
-        window.addEventListener("scroll", this.handleScroll)
-    },
-
-    destroyed() {
-        window.removeEventListener("scroll", this.handleScroll)
-    },
 }
 </script>
 

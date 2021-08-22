@@ -17,7 +17,7 @@
                 :className="main" 
                 />
             
-            <ProjectDonateChart :date="item.date" :donation="item.donation"/>
+            <ProjectDonateChart :date="item.date" :donation="item.donation" :id="item.id"/>
         </div>
     </div>
 </template>

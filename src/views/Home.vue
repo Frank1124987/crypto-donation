@@ -24,7 +24,11 @@ export default {
     ContentContainer,
   },
 
-  inject: ['nft_db', 'projects_db']
+  inject: ['nft_db', 'projects_db'],
+
+  destroyed() {
+    console.log('hi')
+  },
 }
 </script>
 
