@@ -7,6 +7,7 @@
                 :key="item.id" 
                 :item="item"
                 :className="info.className" 
+                :urlName="info.urlName"
                 />
         </div>
     </div>

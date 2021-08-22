@@ -38,13 +38,12 @@ export default {
 
 .navbar-option{
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
+    line-height: 38px;
+
     width: calc((100% - 15px)/4);
     border-radius: 32px;
     cursor: pointer;
-    font-family: sans-serif;
 }
 
 .navbar-option:hover{

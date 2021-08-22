@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import DonationProjects from '../views/projects/DonationProjects.vue'
+import Project from '../views/projects/ProjectDetail.vue'
 
 const routes = [
   {
@@ -10,7 +11,19 @@ const routes = [
   },
   {
     path: '/donation-projects',
-    component: DonationProjects
+    name: 'DonationProjects',
+    component: DonationProjects,
+  },
+  {
+      path: '/project/:id',
+      name: 'Project',
+      component: Project,
+    
+  },
+  {
+    path: '/NFT/:id',
+    name: 'NFT-list',
+    component: () => import('../views/NFT.vue')
   },
   {
     path: '/about',

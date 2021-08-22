@@ -1,7 +1,7 @@
 <template>
-    <div class="item" :class="[className]">
+    <router-link :to="{ name: urlName , params:{id : item.id}}" class="item" :class="[className]">
         <img :src= "require('../../assets' + item.image)" >
-        <div class="content">
+        <div class="text-area">
             <div>
                 <span style="font-size: 25px">{{ item.title }}</span>
             </div>
@@ -9,7 +9,7 @@
                 <component :is="text" :content="content"/>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -32,7 +32,10 @@ export default {
             type: String,
             required: true
         },
-
+        urlName :{
+            type : String,
+            required: true
+        }
     },
     data() {
         return {
@@ -69,7 +72,6 @@ export default {
 
 img {
     border-radius: 15px;
-    margin: 0 10px 10px 0;
 }
 
 /* Donation Project Style */
@@ -82,6 +84,10 @@ img {
     width: 100%;
     aspect-ratio: 1/1;   
 }
+.donation-project > div.text-area{
+    margin-top: 2%;
+}
+
 
 /* NFT List Style */
 .nft-item{
@@ -93,7 +99,11 @@ img {
     width: 25%;
     aspect-ratio: 1/1;
 }
+.nft-item > div.text-area{
+    margin-left: 2%;
+}
 
+/* donation projects all */
 .donation-projects-main {
     width: 75%;
     margin: 2% 0 2% 0;
@@ -106,7 +116,7 @@ img {
     aspect-ratio: 1 / 1;
 }
 
-.donation-projects-main > div.content {
+.donation-projects-main > div.text-area {
     width: 67%;
     padding : 1%;
 }

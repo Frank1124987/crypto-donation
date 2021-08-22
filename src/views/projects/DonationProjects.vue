@@ -15,9 +15,10 @@
             <ContentItem                
                 :item="item"
                 :className="main" 
+                :urlName="projects_db.urlName"
                 />
             
-            <ProjectDonateChart :date="item.date" :donation="item.donation"/>
+            <ProjectDonateChart :date="item.date" :donation="item.donation" :id="item.id"/>
         </div>
     </div>
 </template>
