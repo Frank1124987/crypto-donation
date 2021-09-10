@@ -1,5 +1,5 @@
 <template>
-    <span style="font-size: 17px">
+    <span class="text">
         {{ content }}
     </span>
 </template>

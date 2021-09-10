@@ -31,7 +31,6 @@ export default {
         const route = useRoute()
         const project = reactive(projects_db.item.find( element => element.id == route.params.id ))
         
-
         return {
             project
         }

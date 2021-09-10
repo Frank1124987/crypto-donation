@@ -12,15 +12,54 @@
             捐款使用方向
         </div>
         <div class="navbar-option-seperation"></div>
-        <div class="navbar-option" >
-            年度報告
-        </div>      
+        <router-link v-if="login" to="/login" class="navbar-option" >
+            登入
+        </router-link>      
+        <div v-else @click="logout" class="navbar-option" >
+            登出
+        </div>  
     </div>
 </template>
 
 <script>
+import { getAuth, signOut,onAuthStateChanged } from "firebase/auth";
+import {onBeforeMount, ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+
 export default {
-    name: "NavbarOption"
+    name: "NavbarOption",
+    setup(){
+        const router = useRouter()
+        const route = useRoute()
+
+        const logout = () => {
+            const auth = getAuth();
+            signOut(auth).then(() => {
+                    // Sign-out successful.
+                    router.push('/')
+                }).catch((error) => {
+                // An error happened.
+            });
+        }
+
+        const login = ref(true)
+
+        const auth = getAuth()
+        onBeforeMount(() => {
+            onAuthStateChanged(auth, (user) => {
+                if ( !user ){
+                    login.value = true
+                }else{
+                    login.value = false
+                }
+            })
+        })
+
+        return {
+            logout,
+            login
+        }
+    }
 }
 </script>
 

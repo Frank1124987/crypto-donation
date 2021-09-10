@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import DonationProjects from '../views/projects/DonationProjects.vue'
 import Project from '../views/projects/ProjectDetail.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import ProjectDonate from '../views/projects/ProjectDonate.vue'
 
 const routes = [
   {
@@ -10,15 +13,29 @@ const routes = [
     component: Home
   },
   {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/project-donate/:id',
+    name: 'ProjectDonate',
+    component: ProjectDonate
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
     path: '/donation-projects',
     name: 'DonationProjects',
     component: DonationProjects,
   },
   {
-      path: '/project/:id',
+      path: '/project/:id(\\d+)',
       name: 'Project',
       component: Project,
-    
   },
   {
     path: '/NFT/:id',
@@ -56,7 +73,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/KnowUs/DonationUsage.vue')
-  }
+  },
+
+
+
+
+  { path: '/:pathMatch(.*)*', 
+    name: 'NotFound', 
+    component: () => import('../views/NotFound.vue') },
 ]
 
 

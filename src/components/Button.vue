@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link :to="{name: 'Project', params: {id : id}}" v-slot="{ href, route, navigate}" >
+        <router-link :to="{name: 'ProjectDonate', params: {id : id}}" v-slot="{ href, route, navigate}" >
             <button :href="href" @click="navigate" :text="route.name"  class="button-18">
                 {{text}}
             </button>

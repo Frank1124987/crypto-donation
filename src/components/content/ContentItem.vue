@@ -3,7 +3,7 @@
         <img :src= "require('../../assets' + item.image)" >
         <div class="text-area">
             <div>
-                <span style="font-size: 25px">{{ item.title }}</span>
+                <span class="subtitle">{{ item.title }}</span>
             </div>
             <div>
                 <component :is="text" :content="content"/>
