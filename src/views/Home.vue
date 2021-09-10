@@ -9,13 +9,11 @@
       <!-- donation usage -->
 
   </div>
-
-
 </template>
 
 <script>
-// @ is an alias to /src
 import ContentContainer from "../components/content/ContentContainer.vue"
+import { ref, onBeforeMount, inject } from 'vue'
 
 export default {
   name: 'Home',
@@ -24,11 +22,15 @@ export default {
     ContentContainer,
   },
 
-  inject: ['nft_db', 'projects_db'],
+  setup(){
+    const nft_db = inject('nft_db')
+    const projects_db = inject('projects_db')
 
-  destroyed() {
-    console.log('hi')
-  },
+    return {
+      projects_db,
+      nft_db
+    }
+  }
 }
 </script>
 

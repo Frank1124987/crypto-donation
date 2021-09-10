@@ -73,25 +73,44 @@ export default {
 
 <style>
 #app {
-  font-family: sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 *{
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0 ;
+    margin: 0 ;
 }
 
 #content{
     padding: 2% 5% 2% 5%;
 }
 
- a, a:hover, a:focus, a:active {
-      text-decoration: none;
-      color: inherit;
- }
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.headtitle {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.subtitle {
+    display: block;
+    font-size: 1.5em;
+}
+
+.text {
+    font-size: 1em;
+}
 </style>

@@ -13,9 +13,6 @@
         </router-link>
          <NavbarOption :headerTop="headerTop"/>
     </div>   
-
-    
-    
 </template>
 
 <script>

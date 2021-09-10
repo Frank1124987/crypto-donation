@@ -13,7 +13,7 @@
             </h3>
             <div class="donation-progress-bar">
                 <span class="already" :style="{ width: already + '%' }"></span>
-                <span class="to-go" :style="{ width: toGo + '%'}" ></span>
+                <span class="togo" :style="{ width: toGo + '%'}" ></span>
             </div>
         </div>
         <div class="block">
@@ -98,7 +98,7 @@ h3 {
     background-color: red;
 }
 
-.to-go {
+.togo {
     border-top-right-radius: 3px ;
     border-bottom-right-radius: 3px;
    
