@@ -7,10 +7,13 @@
 </template>
  
 <script>
+import {provide, ref, reactive, onUnmounted, watch} from 'vue'
+import {useStore} from 'vuex'
+
 import Header from "./components/Header.vue"
 import Footer from "./components/Footer.vue"
-import {provide, ref, reactive, onUnmounted} from 'vue'
 
+import {contract} from "./contract/contract.js"
 
 export default {
     components: {
@@ -31,7 +34,7 @@ export default {
                         {id: 2, image: "/NFT_items/image_2.png", title: "B",  summary: "This is bad",  content: "Complete description for project"},
                         {id: 3, image: "/NFT_items/image_3.png", title: "C",  summary: "This soso",  content: "Complete description for project"},
                         {id: 4, image: "/NFT_items/image_4.png", title: "D",  summary: "This is fine", content: "Complete description for project"},
-                        {id: 5, image: "/NFT_items/image_5.png", title: "E",  summary: "This is fine", content: "Complete description for project"},
+                        {id: 5, image: "/NFT_items/image_5.jpg", title: "E",  summary: "This is fine", content: "Complete description for project"},
                         {id: 6, image: "/NFT_items/image_6.png", title: "F",  summary: "This is fine", content: "Complete description for project"},
                         {id: 7, image: "/NFT_items/image_7.png", title: "G",  summary: "This is fine",  content: "Complete description for project"},
                     ]
@@ -44,7 +47,7 @@ export default {
                 item : [
                         {id: 1, image: '/donation_project/image_1.jpg', title: "SDD", date: {from: '8/24', to: '9/25'}, donation: {current: 100, target: 1000}, summary: "抖內給帥哥", content: "Complete description for project"},
                         {id: 2, image: '/donation_project/image_2.jpg', title: "B", date: {from: '8/24', to: '9/25'}, donation: {current: 500, target: 1000}, summary: "This is bad", content: "Complete description for project"},
-                        {id: 3, image: '/donation_project/image_3.png', title: "C", date: {from: '8/24', to: '9/25'}, donation: {current: 300, target: 1000}, summary: "This soso", content: "Complete description for project"},
+                        {id: 3, image: '/donation_project/image_3.jpg', title: "C", date: {from: '8/24', to: '9/25'}, donation: {current: 300, target: 1000}, summary: "This soso", content: "Complete description for project"},
                         {id: 4, image: '/donation_project/image_4.png', title: "D", date: {from: '8/24', to: '9/25'}, donation: {current: 800, target: 1000}, summary: "This is fine", content: "Complete description for project"}
                         ]
             })
@@ -61,12 +64,46 @@ export default {
             window.removeEventListener("scroll", handleScroll)
         })
 
+
+        // contract.methods.owner().call({from : '0xB4f0942cA49e9429E4E0bc32e5F3A349D9b3De8e'}).then((result) => {
+        //     console.log(result)
+        // })
+
+        // contract.methods.registerDepartment('6', 'shut the fuck up').estimateGas({from: '0xD3323487981C22C3F09E32ADF4CB4Ad6FDE1fD84'})
+        //     .then((result) => {
+        
+        //         contract.methods.registerDepartment('6', 'shut the fuck up')
+        //             .send({
+        //                 from : '0xD3323487981C22C3F09E32ADF4CB4Ad6FDE1fD84',
+        //                 gas : result,
+        //                 gasPrice : '30000000' 
+        //         }).then(console.log)
+        //         }
+        //     )
+
+
+        const store = useStore()
+        store.dispatch("initialFetch")
+
+        contract.events.NewDepartment({
+            fromBlock: "latest"
+        }, (error, event) => {        
+            store.dispatch("initialFetch")
+        })
+
+        contract.events.NewPlan({
+            fromBlock: "latest"
+        }, (error, event) => {
+            console.log(event.returnValues)
+            store.commit("updatePlan", event.returnValues.plan)
+        })
+
+
         return {
             contentTopPos,
             toppos
         }
     },
-
 }
 </script>
 

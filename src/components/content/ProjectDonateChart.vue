@@ -60,10 +60,8 @@ export default {
             already,
             toGo
         }
-    },
+    }
 }
-
-
 </script>
 
 <style scoped>

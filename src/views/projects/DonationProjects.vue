@@ -53,10 +53,11 @@ export default ({
 
 <style scoped>
 #donation-projects-main-header {
-    display: flex;
     align-items: center;
 }
-
+#donation-projects-main-header > div{
+    display: inline-block;
+}
 .donation-projects-main-content {
     display: flex;
     align-items: center;
@@ -64,6 +65,7 @@ export default ({
 
 #donation-projects-main-header-filter{
     margin: 0 3% 0 3%;
+    width: auto;
 }
 
 </style>

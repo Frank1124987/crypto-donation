@@ -33,6 +33,7 @@ export default{
     setup(){
         const email = ref("")
         const password = ref("")
+        
         const router = useRouter()
 
         const login = () => {

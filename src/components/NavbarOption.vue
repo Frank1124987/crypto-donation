@@ -8,9 +8,9 @@
             各項專案 
         </router-link>
         <div class="navbar-option-seperation"></div>
-        <div class="navbar-option" >
-            捐款使用方向
-        </div>
+        <router-link to="/registerDepartment" class="navbar-option">
+            登記部門
+        </router-link>
         <div class="navbar-option-seperation"></div>
         <router-link v-if="login" to="/login" class="navbar-option" >
             登入

@@ -28,6 +28,21 @@ const routes = [
     component: Register
   },
   {
+    path: '/register-donor',
+    name: 'RegisterDonor',
+    component: () => import( '../views/user/RegisterDonor.vue')
+  },
+  {
+    path: '/registerDepartment',
+    name: 'RegisterDepartment',
+    component: () => import( '../views/department/RegisterDepartment.vue')
+  },
+  {
+    path: '/department/:departmentId',
+    name: 'DepartmentMain',
+    component: () => import( '../views/department/DepartmentMain.vue'),
+  },
+  {
     path: '/donation-projects',
     name: 'DonationProjects',
     component: DonationProjects,

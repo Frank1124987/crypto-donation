@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import {store} from './store/index.js'
 
 import {initializeApp} from "firebase/app"
 // TODO: Add SDKs for Firebase products that you want to use
@@ -15,8 +16,8 @@ const firebaseConfig = {
   messagingSenderId: "683862631437",
   appId: "1:683862631437:web:3065df1adc736d4ed62144"
 }
-
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig)
 
-createApp(App).use(router).mount('#app')
+
+createApp(App).use(router).use(store).mount('#app')
