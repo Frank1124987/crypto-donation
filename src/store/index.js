@@ -7,8 +7,9 @@ const store = createStore({
             department : [],
             plan : [],
             user: {
-                id: null,
-                address: "0x0dD5265d8c43134b2a6AEA28009B4C969aAdf980"
+                uId: null,
+                ethereumId: null,
+                address: null
             }
         }
     },
@@ -18,41 +19,48 @@ const store = createStore({
         }
     },
     mutations: {
-        initialAssign(state, allDepartment){
-            state.department = allDepartment
-            console.log(state.department)
-            
-        },
         updateDepartment(state, newDepartment){
-            console.log('hi', newDepartment)
             state.department.push(newDepartment)
         },
         updatePlan(state, newPlan){
             state.plan.push(newPlan)
         },
-        addUserId(state, address){
-            console.log(address)
-            state.user.id = address
+        setAddress(state, address){
+            state.user.address = address
+        },
+        setUserUId(state, uid){
+            state.user.uId = uid
+        },
+        setUserEthereumId(state, ethereumId){
+            state.user.ethereumId = ethereumId
+        },
+        clearAllUserId(state){
+            state.uId = null,
+            state.ethereumId = null,
+            state.address = null
         },
         clearDepartment(state){
-            state.department=[]
-        }
+            state.department = []
+        },
+        clearPlan(state){
+            state.plan = []
+        },
     },
     actions: {
-        async initialFetch({commit}){
+        async fetchDepartment({commit}){
             commit("clearDepartment")
             const ids = await contract.methods.getDepartment_ids().call()
             ids.forEach(async id => {
-                commit("updateDepartment", await contract.methods.getDepartment(id).call()
-                )
+                commit("updateDepartment", await contract.methods.getDepartment(id).call())
             })
         },  
-        updateState({state, commit}){
-            return contract.methods.getDepartment_ids().call().then((result) => {
-                commit('updateDepartment', result)
-                return Promise.resolve(result)
+        async fetchPlan({commit}, departmentId){
+            commit("clearPlan")
+            const names = await contract.methods.getPlan_names(departmentId).call()
+            names.forEach(async name => {
+                commit("updatePlan", await contract.methods.getPlan(departmentId, name).call())
             })
-        }
+        }   
     }
 })
 

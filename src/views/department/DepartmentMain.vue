@@ -2,7 +2,8 @@
     <div>
         <div>
             <h1>
-                {{ $route.params.departmentName }} 
+                {{ $route.params.departmentId }} 
+                <br>
                 Current user : {{ userId}}
             </h1>
             <form @submit.prevent="registerPlan">
@@ -46,7 +47,7 @@
 <script>
 import {useRoute, useRouter} from 'vue-router'
 import {onBeforeMount, ref, computed} from 'vue'
-import {contract} from '@/contract/contract.js'
+import {web3, contract} from '@/contract/contract.js'
 import {useStore} from 'vuex'
 import Plan from '@/components/plan/PlanTemp.vue'
 
@@ -64,15 +65,22 @@ export default {
         const goal = ref(0)
         const descritpion = ref("")
 
-        const registerPlan = () => {
+        const registerPlan = async () => {
+            const address = await web3.eth.getAccounts()
             contract.methods.createPlan(route.params.departmentId, planName.value, descritpion.value, goal.value)
                 .send({
-                    from : store.state.user.address,
-                    gas : 6721975,
-                    gasPrice : '30000000'
-            })
+                    from : address[0],
+                    gas : 9187500,
+            }).catch(window.alert)
         }
         
+        // onBeforeMount(() => {
+        //     if (store.state.user.ethereumId == null){
+        //         // window.alert("Has not register!")
+        //         router.replace('/register-donor')
+        //     }
+        // })
+        store.dispatch("fetchPlan", route.params.departmentId)
         return{
             planId,
             planName,
@@ -80,7 +88,7 @@ export default {
             descritpion,
             address: computed(() => store.state.user.address),
             plans: computed(() => store.state.plan),
-            userId: computed(() => store.state.user.id),
+            userId: computed(() => store.state.user.ethereumId),
             registerPlan
         }
     }

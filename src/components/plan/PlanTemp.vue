@@ -21,8 +21,8 @@
 <script>
 import {ref, computed} from 'vue'
 import {useStore} from 'vuex'
-import {useRoute} from 'vue-router'
-import {contract} from '@/contract/contract.js'
+import {useRoute, useRouter} from 'vue-router'
+import {web3, contract} from '@/contract/contract.js'
 export default{
     props: {
         plan: {
@@ -32,24 +32,42 @@ export default{
     setup(props) {
         const store = useStore()
         const route = useRoute()
+        const router = useRouter()
 
         const plan = ref(props.plan)
         const amount = ref(0)
-        const donate = () => {
+        
+        const donate = async () => {
+            const address = await web3.eth.getAccounts()
+            console.log("plan initial:", plan.value)
+            console.log(address[0])
+            //  TODO : verify the ethereum address
+            contract.methods.registerLoginAddress(store.state.user.ethereumId, address[0]).send({
+                from : address[0],
+                gas :9187500
+            })
+            .catch(console.log)
+            .finally( () => {
+                console.log("donating")
+                contract.methods.donate(store.state.user.ethereumId, route.params.departmentId, plan.value.name).send({
+                    from: address[0],
+                    gas : 9187500,
+                    value: amount.value
+                }).then((result) => {
+                    // console.log("result",result)
+                    // contract.methods.getPlan(route.params.departmentId, plan.value.name).call().then(console.log)
+                    console.log("plan after:", plan.value)
 
-            contract.methods.donate(store.state.user.id, route.params.departmentId, plan.value.name).send({
-                from: store.state.user.address,
-                gas : 6721975,
-                gasPrice : '30000000',
-                value: amount.value
-            }).then((result) => {
-                console.log("result",result)
-                contract.methods.getPlan(route.params.departmentId, plan.value.name).call().then(console.log)
-            }).catch(console.log)
+                    // router.go()
+                }).catch(window.alert)
+                
+            })
+            
         }
+
         return {
             plan,
-            userId: computed(() => store.state.user.id),
+            userId: computed(() => store.state.user.ethereumId),
             amount,
             donate
         }

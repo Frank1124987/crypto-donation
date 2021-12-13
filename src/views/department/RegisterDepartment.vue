@@ -48,7 +48,7 @@ import {useStore} from 'vuex'
 import {useRoute, useRouter} from 'vue-router'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-import {contract} from "@/contract/contract.js"
+import {web3, contract} from "@/contract/contract.js"
 
 export default {
   setup() {
@@ -73,12 +73,14 @@ export default {
     const phone = ref("")
     const category = ref("")
     
-    const register = () => {
+    
+
+    const register = async () => {
+        const address = await web3.eth.getAccounts()
         contract.methods.registerDepartment(departmentId.value, departmentName.value)
             .send({
-                from : store.state.user.address,
-                gas : 6721975,
-                gasPrice : '30000000'
+                from : address[0],
+                gas : 9187500,
         }).then(() => {
             router.replace('/')
         })
