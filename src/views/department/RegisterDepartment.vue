@@ -83,7 +83,7 @@ export default {
                 gas : 9187500,
         }).then(() => {
             router.replace('/')
-        })
+        }).catch(window.alert)
     }
 
     return {

@@ -6,35 +6,46 @@
                 <br>
                 Current user : {{ userId}}
             </h1>
-            <form @submit.prevent="registerPlan">
+            <div class="plan-registeration">
                 <div>
-                    <label for="address">地址: </label>
-                    <br>
-                    <input id="address" type="text" v-model="address" >
+                    <h2>登記專案</h2>
+                    <form @submit.prevent="registerPlan">
+                        <div>
+                            <label for="address">地址: </label>
+                            <br>
+                            <input id="address" type="text" v-model="address" >
+                        </div>
+                        <div>
+                            <label for="planId">ID: </label>
+                            <br>
+                            <input id="planId" type="text" v-model="planId" >
+                        </div>
+                        <div>
+                            <label for="planName">專案名稱:</label>
+                            <br>
+                            <input id="planName" type="text" v-model="planName" >
+                        </div>
+                        <div>
+                            <label for="goal">目標:</label>
+                            <br>
+                            <input id="goal" type="number" v-model="goal">
+                        </div>
+                        <div>
+                            <label for="descritpion">描述:</label>
+                            <br>
+                            <input id="descritpion" type="text" v-model="descritpion">
+                        </div>
+                        <br>
+                        <input type="submit" value="提交">
+                    </form>
                 </div>
                 <div>
-                    <label for="planId">ID: </label>
-                    <br>
-                    <input id="planId" type="text" v-model="planId" >
+                    <h2>登記NFT</h2>
+                    <RegisterNFT
+                        :plans="plans"
+                    />
                 </div>
-                <div>
-                    <label for="planName">專案名稱:</label>
-                    <br>
-                    <input id="planName" type="text" v-model="planName" >
-                </div>
-                <div>
-                    <label for="goal">目標:</label>
-                    <br>
-                    <input id="goal" type="number" v-model="goal">
-                </div>
-                <div>
-                    <label for="descritpion">描述:</label>
-                    <br>
-                    <input id="descritpion" type="text" v-model="descritpion">
-                </div>
-                <br>
-                <input type="submit" value="提交">
-            </form>
+            </div>
         </div>
         <br>
         <div v-for="(plan, id) in plans" :key="id">
@@ -49,11 +60,14 @@ import {useRoute, useRouter} from 'vue-router'
 import {onBeforeMount, ref, computed} from 'vue'
 import {web3, contract} from '@/contract/contract.js'
 import {useStore} from 'vuex'
+
+import RegisterNFT from "@/components/nft/RegisterNFT.vue"
 import Plan from '@/components/plan/PlanTemp.vue'
 
 export default {
     components: {
-        Plan
+        Plan,
+        RegisterNFT
     },
     setup(props) {
         const route = useRoute()
@@ -96,5 +110,10 @@ export default {
 </script>
 
 <style scoped>
-
+.plan-registeration{
+    display: flex;
+}
+.plan-registeration > div{
+    width: 50%;
+}
 </style>
