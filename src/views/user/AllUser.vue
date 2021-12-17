@@ -23,10 +23,6 @@ export default {
             accountService.getAllAccount()
         }
 
-
-
-
-
         return{
             getAll
         }

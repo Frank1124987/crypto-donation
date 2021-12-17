@@ -12,9 +12,15 @@
             </h3>
             <form @submit.prevent="donate">
                 <p>使用者ID：{{ userId }} | 部門ID：{{ $route.params.departmentId }}</p>
-                <input type="number" v-model="amount">
+                <input type="number" v-model="donateAmount">
                 &nbsp
                 <input type="submit" value="捐款">
+            </form>
+            <form @submit.prevent="withdraw">
+                <p>只有擁有者才能提款</p>
+                <input type="number" v-model="withdrawAmount">
+                &nbsp
+                <input type="submit" value="提款">
             </form>
         </div>
         <!-- <div class="close-button">
@@ -40,7 +46,9 @@ export default{
         const router = useRouter()
 
         const plan = ref(props.plan)
-        const amount = ref(0)
+        const donateAmount = ref(0)
+        const withdrawAmount = ref(0)
+
 
         const donate = async () => {
             const address = await web3.eth.getAccounts()
@@ -54,10 +62,11 @@ export default{
             .catch(console.log)
             .finally( () => {
                 console.log("donating")
+                console.log(store.state.user.ethereumId, route.params.departmentId, plan.value.name)
                 contract.methods.donate(store.state.user.ethereumId, route.params.departmentId, plan.value.name).send({
                     from: address[0],
                     gas : 9187500,
-                    value: amount.value
+                    value: donateAmount.value
                 }).then((result) => {
                     // console.log("result",result)
                     // contract.methods.getPlan(route.params.departmentId, plan.value.name).call().then(console.log)
@@ -65,8 +74,15 @@ export default{
 
                     // router.go()
                 }).catch(window.alert)
-                
             })
+        }
+        
+        const withdraw = async () => {
+            const address = await web3.eth.getAccounts()
+            contract.methods.withdraw(route.params.departmentId, plan.value.name, withdrawAmount.value).send({
+                from: address[0],
+                gas :9187500
+            }).catch(window.alert)
         }
 
         // const withdrawPlan = () => {
@@ -76,8 +92,10 @@ export default{
         return {
             plan,
             userId: computed(() => store.state.user.ethereumId),
-            amount,
-            donate
+            withdrawAmount,
+            donateAmount,
+            donate,
+            withdraw
         }
     }
 }
