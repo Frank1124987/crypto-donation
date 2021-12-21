@@ -29,34 +29,52 @@
 import {ref, computed} from 'vue'
 import {useStore} from 'vuex'
 import {contract} from '@/contract/contract.js'
+import {useRouter} from 'vue-router'
+import {getAuth} from 'firebase/auth'
 
+import accountService from '@/firestore/firestoreFunc.js'
 export default{
     setup(){
         const store = useStore()
+        const router = useRouter()
 
         const userId = ref("")
         const userName = ref("")
+        const address = ref("")
         
-        const registerDonor = () => {
+        const registerDonor = async () => {
+            console.log(address.value)
             contract.methods.registerDonor(userId.value, userName.value).send({
-                from: store.state.user.address,
-                gas : 6721975,
-                gasPrice : '30000000'  
+                from: address.value,
+                gas : 9187500
             }).then(() => {
-                store.commit("addUserId", userId.value)
+                store.commit("setUserEthereumId", userId.value)
                 contract.methods.registerLoginAddress(userId.value, address.value).send({
                     from: address.value,
                     gas : 6721975,
                     gasPrice : '30000000'  
                 })
+                
+                console.log("hfsdiafafsasadsdasdfda")
+                const userData = {
+                    ethereumId: userId.value,
+                    ethereumAddress: address.value
+                }
+                accountService.createAccount(store.state.user.uId, userData)
+                router.push('/')
+            }).catch(error => {
+                window.alert(error)
+                router.go()
             })
         }
+
+
 
         return {
             registerDonor,
             userName,
             userId,
-            address: computed(() => store.state.user.address)
+            address
         }
     }
 }

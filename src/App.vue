@@ -15,6 +15,9 @@ import Footer from "./components/Footer.vue"
 
 import {contract} from "./contract/contract.js"
 
+import accountService from "@/firestore/firestoreFunc.js"
+
+import {getAuth, onAuthStateChanged} from "firebase/auth"
 export default {
     components: {
         Header,
@@ -64,11 +67,6 @@ export default {
             window.removeEventListener("scroll", handleScroll)
         })
 
-
-        // contract.methods.owner().call({from : '0xB4f0942cA49e9429E4E0bc32e5F3A349D9b3De8e'}).then((result) => {
-        //     console.log(result)
-        // })
-
         // contract.methods.registerDepartment('6', 'shut the fuck up').estimateGas({from: '0xD3323487981C22C3F09E32ADF4CB4Ad6FDE1fD84'})
         //     .then((result) => {
         
@@ -83,12 +81,12 @@ export default {
 
 
         const store = useStore()
-        store.dispatch("initialFetch")
+        store.dispatch("fetchDepartment")
 
         contract.events.NewDepartment({
             fromBlock: "latest"
         }, (error, event) => {        
-            store.dispatch("initialFetch")
+            store.dispatch("fetchDepartment")
         })
 
         contract.events.NewPlan({
@@ -98,6 +96,23 @@ export default {
             store.commit("updatePlan", event.returnValues.plan)
         })
 
+
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+            if (user){
+                store.commit("setUserUId", user.uid)
+                accountService.readAccount(user.uid)
+            }else{
+                store.commit("clearAllUserId")
+            }
+        })
+        
+        // let temp = {
+        //     ethereumId: "60",
+        //     ethereumAddress: "sddsffddsf"
+        // }
+        // console.log(accountService)
+        // accountService.createEthereumId("3nlUiGqYvtXYVNP8U5OCSvbNkIJ2", {temp: "wetwe"})
 
         return {
             contentTopPos,

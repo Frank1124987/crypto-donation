@@ -38,6 +38,16 @@ const routes = [
     component: () => import( '../views/department/RegisterDepartment.vue')
   },
   {
+    path: '/personalPage',
+    name: 'PersonalPage',
+    component: () => import( '../views/user/PersonalPage.vue')
+  },
+  {
+    path: '/allUser',
+    name: 'AllUser',
+    component: () => import( '../views/user/AllUser.vue')
+  },
+  {
     path: '/department/:departmentId',
     name: 'DepartmentMain',
     component: () => import( '../views/department/DepartmentMain.vue'),
