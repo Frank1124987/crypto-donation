@@ -93,7 +93,7 @@ export default {
 
 <style scoped>
 #navbar-cover-background{
-    background-image: url("../assets/cover.jpg");
+    background-image: url("../assets/cover1.jpeg");
     
     background-repeat: no-repeat;
     background-size: cover;

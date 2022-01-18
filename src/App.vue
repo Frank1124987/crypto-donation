@@ -33,13 +33,13 @@ export default {
                 className : "nft-item",
                 urlName: "NFT-list",
                 item : [
-                        {id: 1, image: "/NFT_items/image_1.png", title: "A",  summary: "This is good", content: "Complete description for project"},
-                        {id: 2, image: "/NFT_items/image_2.png", title: "B",  summary: "This is bad",  content: "Complete description for project"},
-                        {id: 3, image: "/NFT_items/image_3.png", title: "C",  summary: "This soso",  content: "Complete description for project"},
-                        {id: 4, image: "/NFT_items/image_4.png", title: "D",  summary: "This is fine", content: "Complete description for project"},
-                        {id: 5, image: "/NFT_items/image_5.jpg", title: "E",  summary: "This is fine", content: "Complete description for project"},
-                        {id: 6, image: "/NFT_items/image_6.png", title: "F",  summary: "This is fine", content: "Complete description for project"},
-                        {id: 7, image: "/NFT_items/image_7.png", title: "G",  summary: "This is fine",  content: "Complete description for project"},
+                        {id: 1, image: "/NFT_items/picture001.png", title: "A",  summary: "This is good", content: "Complete description for project"},
+                        {id: 2, image: "/NFT_items/picture002.png", title: "B",  summary: "This is bad",  content: "Complete description for project"},
+                        {id: 3, image: "/NFT_items/picture003.png", title: "C",  summary: "This soso",  content: "Complete description for project"},
+                        {id: 4, image: "/NFT_items/picture004.png", title: "D",  summary: "This is fine", content: "Complete description for project"},
+                        {id: 5, image: "/NFT_items/picture005.png", title: "E",  summary: "This is fine", content: "Complete description for project"},
+                        {id: 6, image: "/NFT_items/picture006.png", title: "F",  summary: "This is fine", content: "Complete description for project"},
+                        {id: 7, image: "/NFT_items/picture007.png", title: "G",  summary: "This is fine",  content: "Complete description for project"},
                     ]
             })
 
@@ -48,10 +48,10 @@ export default {
                 className : "donation-project",
                 urlName: "Project",
                 item : [
-                        {id: 1, image: '/donation_project/image_1.jpg', title: "SDD", date: {from: '8/24', to: '9/25'}, donation: {current: 100, target: 1000}, summary: "抖內給帥哥", content: "Complete description for project"},
-                        {id: 2, image: '/donation_project/image_2.jpg', title: "B", date: {from: '8/24', to: '9/25'}, donation: {current: 500, target: 1000}, summary: "This is bad", content: "Complete description for project"},
-                        {id: 3, image: '/donation_project/image_3.jpg', title: "C", date: {from: '8/24', to: '9/25'}, donation: {current: 300, target: 1000}, summary: "This soso", content: "Complete description for project"},
-                        {id: 4, image: '/donation_project/image_4.png', title: "D", date: {from: '8/24', to: '9/25'}, donation: {current: 800, target: 1000}, summary: "This is fine", content: "Complete description for project"}
+                        {id: 1, image: '/donation_project/image001.png', title: "A", date: {from: '8/24', to: '9/25'}, donation: {current: 100, target: 1000}, summary: "This is cool", content: "Complete description for project"},
+                        {id: 2, image: '/donation_project/image002.png', title: "B", date: {from: '8/24', to: '9/25'}, donation: {current: 500, target: 1000}, summary: "This is bad", content: "Complete description for project"},
+                        {id: 3, image: '/donation_project/image003.png', title: "C", date: {from: '8/24', to: '9/25'}, donation: {current: 300, target: 1000}, summary: "This soso", content: "Complete description for project"},
+                        {id: 4, image: '/donation_project/image004.png', title: "D", date: {from: '8/24', to: '9/25'}, donation: {current: 800, target: 1000}, summary: "This is fine", content: "Complete description for project"}
                         ]
             })
 
