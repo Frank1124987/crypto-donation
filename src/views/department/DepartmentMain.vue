@@ -36,6 +36,13 @@
                             <input id="descritpion" type="text" v-model="descritpion">
                         </div>
                         <br>
+                        <div>
+                            <label for="formFile" class="form-label">Upload Image：</label>
+                            <input class="form-control" type="file" @input="pickFile" accept="image/*">
+                            <div>
+                                <img class="preview-img" :src="image" alt="">
+                            </div>
+                        </div>
                         <input type="submit" value="提交">
                     </form>
                 </div>
@@ -64,6 +71,8 @@ import {useStore} from 'vuex'
 import RegisterNFT from "@/components/nft/RegisterNFT.vue"
 import Plan from '@/components/plan/PlanTemp.vue'
 
+import accountService from "@/firestore/firestoreFunc.js"
+
 export default {
     components: {
         Plan,
@@ -79,22 +88,42 @@ export default {
         const goal = ref(0)
         const descritpion = ref("")
 
-        const registerPlan = async () => {
-            const address = await web3.eth.getAccounts()
-            contract.methods.createPlan(route.params.departmentId, planName.value, descritpion.value, goal.value)
-                .send({
-                    from : address[0],
-                    gas : 9187500,
-            }).catch(window.alert)
-        }
         
         // onBeforeMount(() => {
-        //     if (store.state.user.ethereumId == null){
-        //         // window.alert("Has not register!")
+            //     if (store.state.user.ethereumId == null){
+                //         // window.alert("Has not register!")
         //         router.replace('/register-donor')
         //     }
         // })
         store.dispatch("fetchPlan", route.params.departmentId)
+
+
+        const image = ref("");
+        let image_temp = null
+        const pickFile = (event) => {
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                image.value = e.target.result;
+            }
+
+            image_temp = event.target.files[0]
+            reader.readAsDataURL(event.target.files[0])
+        }
+
+
+        const registerPlan = async () => {
+            accountService.createPlan(route.params.departmentId, planName.value, image_temp)
+
+            // const address = await web3.eth.getAccounts()
+            // contract.methods.createPlan(route.params.departmentId, planName.value, descritpion.value, goal.value)
+            //     .send({
+            //         from : address[0],
+            //         gas : 9187500,
+            // }).then(() => {
+
+            // }).catch(window.alert)
+        }
+
         return{
             planId,
             planName,
@@ -103,6 +132,8 @@ export default {
             address: computed(() => store.state.user.address),
             plans: computed(() => store.state.plan),
             userId: computed(() => store.state.user.ethereumId),
+            image,
+            pickFile,
             registerPlan
         }
     }
@@ -114,6 +145,9 @@ export default {
     display: flex;
 }
 .plan-registeration > div{
+    width: 50%;
+}
+.preview-img {
     width: 50%;
 }
 </style>

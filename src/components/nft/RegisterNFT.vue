@@ -24,7 +24,7 @@
             <div>
                 <label for="formFile" class="form-label">Upload Image：</label>
                 <input class="form-control" type="file" @input="pickFile" accept="image/*">
-                <img id="nft-preview-img" :src="image" alt="">
+                <img class="preview-img" :src="image" alt="">
             </div>
             <br>
             <input type="submit" value="提交">
@@ -118,7 +118,7 @@ export default {
     background-position: center center;
 }
 
-#nft-preview-img {
-    width: 80%;
+.preview-img {
+    width: 50%;
 }
 </style>

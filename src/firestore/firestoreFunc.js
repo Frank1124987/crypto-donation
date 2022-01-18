@@ -2,6 +2,7 @@ import { firebaseAPP } from "./firestoreInit.js"
 import {getFirestore, collection, getDoc, doc, setDoc, addDoc, getDocs} from 'firebase/firestore/lite';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {store} from '../store/index.js'
+import {NFTStorage, File} from 'nft.storage'
 
 const db = getFirestore()
 // const doc = collection(db, "userAccountToEthereumId")
@@ -36,6 +37,23 @@ class dbService{
             })
         })
     }
+
+    async createPlan(departmentId, planName, image){
+
+        const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDY0Q2NGNEVlMEM4N2I2QjZlNEFDRTRFQWRiNzg0MGQ0RjUyMjMxMTciLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzOTU0NDQyNTgwNCwibmFtZSI6ImNyeXB0X2RvbmF0aW9uIn0.iGh9m27-DncOEfMl0vBEy8fPWIKY32eeQLkmatfawbI'
+        const client = new NFTStorage({token : apiKey})
+        const metadata = await client.store({
+            name: planName,
+            description: "",
+            image: image
+        })
+
+        let temp = {}
+        temp[planName] = metadata.url
+
+        setDoc(doc(db, "department", departmentId), temp, {merge: true}).then(console.log)
+    }
+
     // createEthereumAddress_Id(uid, address){
         
     // }

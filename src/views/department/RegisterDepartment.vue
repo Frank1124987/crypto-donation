@@ -20,7 +20,9 @@
                     <br>
                     <input id="departmentName" type="text" v-model="departmentName" >
                 </div>
-                <div>
+                <br>
+
+                <!-- <div>
                     <label for="email">Email:</label>
                     <br>
                     <input id="email" type="text" v-model="email">
@@ -35,7 +37,7 @@
                     <label for="category-official">官方</label>
                     <input id="category-student" type="radio" v-model="category" value="學生">
                     <label for="category-student">學生</label>
-                </p>
+                </p> -->
                 <input type="submit" value="提交">
             </form>
         </div>
@@ -51,50 +53,59 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {web3, contract} from "@/contract/contract.js"
 
 export default {
-  setup() {
-    const router = useRouter()
-    const store = useStore()
+    setup() {
+        const router = useRouter()
+        const store = useStore()
 
-    const auth = getAuth()
-    onBeforeMount(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (!user) {
-          router.replace('/login')
-        }else {
-        //   console.log(auth.currentUser.providerData)
+        const auth = getAuth()
+        onBeforeMount(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+            router.replace('/login')
+            }else {
+            //   console.log(auth.currentUser.providerData)
+            }
+        })
+        })
+
+
+        const departmentId = ref("")
+        const departmentName = ref("")
+        const email = ref("")
+        const phone = ref("")
+        const category = ref("")
+        
+        
+
+        const register = async () => {
+            const address = await web3.eth.getAccounts()
+            contract.methods.registerDepartment(departmentId.value, departmentName.value)
+                .send({
+                    from : address[0],
+                    gas : 9187500,
+            }).then(() => {
+                router.replace('/')
+            }).catch(window.alert)
         }
-      })
-    })
 
 
-    const departmentId = ref("")
-    const departmentName = ref("")
-    const email = ref("")
-    const phone = ref("")
-    const category = ref("")
-    
-    
 
-    const register = async () => {
-        const address = await web3.eth.getAccounts()
-        contract.methods.registerDepartment(departmentId.value, departmentName.value)
-            .send({
-                from : address[0],
-                gas : 9187500,
-        }).then(() => {
-            router.replace('/')
-        }).catch(window.alert)
-    }
 
-    return {
-        departmentName,
-        departmentId,
-        email,
-        phone,
-        category,
-        address: computed(() => store.state.user.address),
-        register
-    }
-  },
+        return {
+            departmentName,
+            departmentId,
+            email,
+            phone,
+            category,
+            address: computed(() => store.state.user.address),
+            register
+        }
+    },
 }
 </script>
+
+<style scoped>
+#preview-img {
+    width: 50%;
+}
+</style>

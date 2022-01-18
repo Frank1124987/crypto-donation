@@ -60,6 +60,8 @@ const store = createStore({
             names.forEach(async name => {
                 commit("updatePlan", await contract.methods.getPlan(departmentId, name).call())
             })
+
+            // console.log(store.state.plan)
         }   
     }
 })
