@@ -49,14 +49,17 @@ export default{
         const donateAmount = ref(0)
         const withdrawAmount = ref(0)
 
-
         const donate = async () => {
             const address = await web3.eth.getAccounts()
-            console.log("plan initial:", plan.value)
+            // console.log("plan initial:", plan.value)
             console.log(address[0])
-            //  TODO : verify the ethereum address
+            console.log(store.state.user.addressInitial)
+    
+            // TODO : verify the ethereum address
+            
+            // TODO : Because metamask require the callee address to be same as the one in use, therefore need to separate register login address and donate
             contract.methods.registerLoginAddress(store.state.user.ethereumId, address[0]).send({
-                from : address[0],
+                from : store.state.user.addressInitial,
                 gas :9187500
             })
             .catch(console.log)
@@ -73,7 +76,7 @@ export default{
                     console.log("plan after:", plan.value)
 
                     // router.go()
-                }).catch(window.alert)
+                }).catch(console.log)
             })
         }
         

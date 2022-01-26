@@ -13,14 +13,14 @@ import {web3, contract} from '@/contract/contract.js'
 import {useRouter} from 'vue-router'
 import {getAuth} from 'firebase/auth'
 
-import accountService from '@/firestore/firestoreFunc.js'
+import { readAllAccount } from '@/firestore/firestoreFunc.js'
 export default {
     name: "AllUser",
     setup(){
 
         const store = useStore()
         const getAll = ()=>{
-            accountService.getAllAccount()
+            readAllAccount()
         }
 
         return{

@@ -32,7 +32,7 @@ import {contract} from '@/contract/contract.js'
 import {useRouter} from 'vue-router'
 import {getAuth} from 'firebase/auth'
 
-import accountService from '@/firestore/firestoreFunc.js'
+import { createAccount } from '@/firestore/firestoreFunc.js'
 export default{
     setup(){
         const store = useStore()
@@ -60,7 +60,7 @@ export default{
                     ethereumId: userId.value,
                     ethereumAddress: address.value
                 }
-                accountService.createAccount(store.state.user.uId, userData)
+                createAccount(store.state.user.uId, userData)
                 router.push('/')
             }).catch(error => {
                 window.alert(error)

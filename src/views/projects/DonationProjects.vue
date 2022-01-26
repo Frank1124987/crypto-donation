@@ -12,11 +12,11 @@
             </div>
         </div>
         <div v-for="item in projects_db.item" :key="item.id" class="donation-projects-main-content " >
-            <ContentItem                
+            <!-- <ContentItem                
                 :item="item"
                 :className="main" 
                 :urlName="projects_db.urlName"
-                />
+                /> -->
             
             <ProjectDonateChart :date="item.date" :donation="item.donation" :id="item.id"/>
         </div>

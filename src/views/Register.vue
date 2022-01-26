@@ -34,7 +34,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {useRouter} from "vue-router"
 import {useStore} from "vuex"
 
-import accountService from "@/firestore/firestoreFunc.js"
+import {createUserProfile} from "@/firestore/firestoreFunc.js"
 import {web3, contract} from "@/contract/contract.js"
 export default{
     name: 'Register',
@@ -43,22 +43,22 @@ export default{
         const password = ref("")
         const username = ref("")
 
-        const route = useRouter()
+        const router = useRouter()
         const store = useStore()
 
 
         const register = async () => {
             const auth = getAuth();
-            const accounts = await web3.eth.getAccounts()
+            const address = await web3.eth.getAccounts()
             createUserWithEmailAndPassword(auth, email.value, password.value)
                 .then((userCredential) => {
                     // Signed in 
-                    accountService.createEthereumId(store.state.user.uId, {ethereumId : email.value})
+                    createUserProfile(store.state.user.uId, {ethereumId : email.value, userName: username.value, addressInitial: address[0]})
                     contract.methods.registerDonor(email.value, username.value).send({
-                        from: accounts[0],
+                        from: address[0],
                         gas : 9187500
                     }).then(console.log)
-                    route.push('/')
+                    router.push('/')
                 })
                 .catch((error) => {
                     const errorCode = error.code;

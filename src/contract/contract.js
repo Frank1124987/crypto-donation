@@ -18,7 +18,6 @@ import ABI from './contractABITestnet.js'
 
 // ethereum.request({ method: 'eth_accounts' }).then(console.log)
 const web3 = new Web3(Web3.givenProvider)
-const contract = new web3.eth.Contract(ABI, '0xDCA52541f8a672EBCfaad3426d212f0E06Fb6A44')
+const contract = new web3.eth.Contract(ABI, '0x6E5ae30aA5fC9B6cF297c6b3B170DaFE1A3a290a')
 // web3.eth.net.getNetworkType(console.log)
-
 export {web3, contract}

@@ -58,7 +58,7 @@ const routes = [
     component: DonationProjects,
   },
   {
-      path: '/project/:id(\\d+)',
+      path: '/department/:departmentId/project/:name',
       name: 'Project',
       component: Project,
   },

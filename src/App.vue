@@ -7,7 +7,7 @@
 </template>
  
 <script>
-import {provide, ref, reactive, onUnmounted, watch} from 'vue'
+import {provide, ref, reactive, onUnmounted, watch, onBeforeMount, onMounted} from 'vue'
 import {useStore} from 'vuex'
 
 import Header from "./components/Header.vue"
@@ -15,7 +15,7 @@ import Footer from "./components/Footer.vue"
 
 import {contract} from "./contract/contract.js"
 
-import accountService from "@/firestore/firestoreFunc.js"
+import {readAccount} from "@/firestore/firestoreFunc.js"
 
 import {getAuth, onAuthStateChanged} from "firebase/auth"
 export default {
@@ -97,22 +97,34 @@ export default {
         })
 
 
+        // TODO : Better way ?
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user){
-                store.commit("setUserUId", user.uid)
-                accountService.readAccount(user.uid)
+                readAccount(user.uid)
             }else{
                 store.commit("clearAllUserId")
             }
         })
+
+        onMounted(() => {
+            onAuthStateChanged(auth, (user) => {
+                if (user){
+                    readAccount(user.uid)
+                }else{
+                    store.commit("clearAllUserId")
+                }
+            })
+        })
         
+
+
         // let temp = {
         //     ethereumId: "60",
         //     ethereumAddress: "sddsffddsf"
         // }
-        // console.log(accountService)
-        // accountService.createEthereumId("3nlUiGqYvtXYVNP8U5OCSvbNkIJ2", {temp: "wetwe"})
+        // console.log(
+        // createEthereumId("3nlUiGqYvtXYVNP8U5OCSvbNkIJ2", {temp: "wetwe"})
 
         return {
             contentTopPos,
@@ -164,5 +176,12 @@ a, a:hover, a:focus, a:active {
 
 .text {
     font-size: 1em;
+}
+
+img{
+    background-color: bisque;
+    font-size: 2em;
+    text-align: center;
+    vertical-align: middle;
 }
 </style>

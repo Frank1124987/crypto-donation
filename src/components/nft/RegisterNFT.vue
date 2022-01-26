@@ -15,17 +15,13 @@
             <div>
                 <span>選擇掛鉤的專案：</span>
                 <select v-model="selectedPlan">
-                    <option v-for="(plan, id) in plans" :key=id>
-                        {{plan.name}}
+                    <option v-for="(plan, id) in plans" :key="id">
+                        {{plan.plan.name}}
                     </option>
                 </select>
             </div>
             <br>
-            <div>
-                <label for="formFile" class="form-label">Upload Image：</label>
-                <input class="form-control" type="file" @input="pickFile" accept="image/*">
-                <img class="preview-img" :src="image" alt="">
-            </div>
+            <AppImagePreview @get-image="updateImage"/>
             <br>
             <input type="submit" value="提交">
         </form>
@@ -38,10 +34,13 @@ import {useStore} from 'vuex'
 import {useRoute, useRouter} from 'vue-router'
 import {web3, contract} from '@/contract/contract.js'
 import {NFTStorage, File} from 'nft.storage'
-// import {pack} from 'ipfs-car/pack'
-import * as fs from 'fs'
+
+import AppImagePreview from '@/components/AppImagePreview.vue'
 
 export default {
+    components: {
+        AppImagePreview
+    },
     props: {
         plans: {
             type: Object
@@ -54,18 +53,10 @@ export default {
         const description = ref("");
         const image = ref("");
         const selectedPlan = ref("")
-
         const plans = ref(props.plans)
 
-        let image_temp = null
-        const pickFile = (event) => {
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                image.value = e.target.result;
-            }
-
-            image_temp = event.target.files[0]
-            reader.readAsDataURL(event.target.files[0])
+        const updateImage = (imageTemp) => {
+            image.value = imageTemp
         }
 
         const registerNFT = async () => {
@@ -74,7 +65,7 @@ export default {
             const metadata = await client.store({
                 name: name.value,
                 description: description.value,
-                image: image_temp
+                image: image.value
             })
             const address = await web3.eth.getAccounts()
 
@@ -99,8 +90,8 @@ export default {
             image,
             plans,
             selectedPlan,
-            pickFile,
-            registerNFT
+            registerNFT,
+            updateImage
         }
     }
 }

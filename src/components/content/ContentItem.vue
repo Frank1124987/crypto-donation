@@ -1,9 +1,9 @@
 <template>
-    <router-link :to="{ name: urlName , params:{id : item.id}}" class="item" :class="[className]">
-        <img :src= "require('../../assets' + item.image)" >
+    <router-link :to="{ name: urlName , params:{departmentId: departmentId, name : item.name}}" class="item" :class="[className]">
+        <img :src= "imageUrl" :alt="item.name" ref="altimage" :style="{'line-height': lineHeight }" >
         <div class="text-area">
             <div>
-                <span class="subtitle">{{ item.title }}</span>
+                <span class="subtitle">{{ item.name }}</span>
             </div>
             <div>
                 <component :is="text" :content="content"/>
@@ -15,6 +15,11 @@
 <script>
 import ContentItemSummary from './ContentItemSummary.vue'
 import ContentItemDescription from './ContentItemDescription.vue'
+import {onBeforeMount, ref, computed, toRefs, reactive, onMounted} from 'vue'
+import {useStore} from 'vuex'
+import {useRoute, useRouter} from 'vue-router'
+
+import {readPlanImage} from '@/firestore/firestoreFunc.js'
 
 export default {
     name: "ContentItem",
@@ -25,7 +30,6 @@ export default {
     props: {
         item: {
             type: Object,
-            required: true
         },
         
         className : {
@@ -35,29 +39,56 @@ export default {
         urlName :{
             type : String,
             required: true
+        },
+        departmentId :{
+            type : String,
+            required: true
         }
     },
-    data() {
-        return {
-            active: true
-        }
-    },
-    computed: {
-        text(){
-            if (this.$route.path === '/'){
+    setup(props){
+        const route = useRoute()
+        const router = useRouter()
+        const {item , className, urlName, departmentId} = toRefs(props)
+
+        const text = computed(() => {
+            if (route.path === '/'){
                 return 'ContentItemSummary'
-            }else if (this.$route.path === '/donation-projects'){
+            }else if (route.path === '/donation-projects'){
                 return 'ContentItemDescription'
             }
-        },
-        content(){
-            if (this.$route.path === '/'){
-                return this.item.summary
-            }else if (this.$route.path === '/donation-projects'){
-                return this.item.content
+        })
+        
+        const content = computed( () => {
+            if (route.path === '/'){
+                return item.value.description
+            }else if (route.path === '/donation-projects'){
+                return "full description"
             }
-        },
+        })
 
+        const imageUrl = ref("")
+        readPlanImage(departmentId.value, item.value.name).then((result) => {
+            imageUrl.value = result
+        }).catch(console.log)
+
+        const altimage = ref(null)
+        const lineHeight = ref(0)
+        onMounted(() => {
+            lineHeight.value = altimage.value.getBoundingClientRect().height + "px"
+        })
+
+        
+        return{
+            text,
+            content,
+            item,
+            className,
+            urlName,
+            departmentId,
+            imageUrl,
+            altimage,
+            lineHeight
+        }
     }
 }
 </script>

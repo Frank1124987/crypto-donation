@@ -1,34 +1,47 @@
 <template>
     <div class="block">
-        <h1>{{ info.title }}</h1>
+        <h1>{{ title }}</h1>
         <div :class="[classContainer]">
             <ContentItem 
-                v-for="item in info.item" 
-                :key="item.id" 
-                :item="item"
-                :className="info.className" 
-                :urlName="info.urlName"
+                v-for="(item, id) in items" 
+                :key="id" 
+                :item="item.plan"
+                :className="className" 
+                :urlName="urlName"
+                :departmentId = "item.department"
                 />
         </div>
     </div>
 </template>
 
 <script>
+import { stringifyQuery } from 'vue-router'
 import ContentItem from "../content/ContentItem.vue"
-
 export default {
     name: "ContentContainer",
 
     props: {
-        info: {
+        items: {
             type: Object,
+            required: true
+        },
+        title: {
+            type: String,
+            required: true
+        },
+        className: {
+            type: String,
+            required: true
+        },
+        urlName: {
+            type: String,
             required: true
         }
     },
 
     data () {
         return {
-            classContainer : 'container-' + this.info.className 
+            classContainer : 'container-' + this.className 
         }
     },
 

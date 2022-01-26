@@ -9,12 +9,17 @@ const store = createStore({
             user: {
                 uId: null,
                 ethereumId: null,
-                address: null
+                address: null,
+                addressInitial: null
             }
         }
     },
     getters: {
         getDepartment(state){
+            return state.department
+        },
+        getDepartmentCount(state){
+            console.log("go fuck yourself", state.department)
             return state.department
         }
     },
@@ -27,6 +32,9 @@ const store = createStore({
         },
         setAddress(state, address){
             state.user.address = address
+        },
+        setAddressInitial(state, address){
+            state.user.addressInitial = address
         },
         setUserUId(state, uid){
             state.user.uId = uid
@@ -53,15 +61,17 @@ const store = createStore({
             ids.forEach(async id => {
                 commit("updateDepartment", await contract.methods.getDepartment(id).call())
             })
+
         },  
         async fetchPlan({commit}, departmentId){
             commit("clearPlan")
             const names = await contract.methods.getPlan_names(departmentId).call()
             names.forEach(async name => {
-                commit("updatePlan", await contract.methods.getPlan(departmentId, name).call())
+                let temp = {}
+                temp["plan"] = await contract.methods.getPlan(departmentId, name).call()
+                temp["department"] = departmentId
+                commit("updatePlan", temp)
             })
-
-            // console.log(store.state.plan)
         }   
     }
 })
