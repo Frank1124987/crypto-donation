@@ -2,7 +2,8 @@
   <div class="home">
 
       <!-- project -->
-      <content-container :items="plans" title="募款中專案" className="donation-project" urlName= "Project"  />
+      <ProjectContainer :items="plans" title="部門專案" className="donation-project" urlName= "Project"  />
+      <ProjectContainer :items="plans" title="個人專案" className="donation-project" urlName= "Project"  />
       <!-- nft -->
       <!-- <content-container :items="nft_db" title="最近的NFT" className="nft-item" urlName ="NFT-list"/> -->
 
@@ -27,7 +28,7 @@
 </template>
 
 <script>
-import ContentContainer from "../components/content/ContentContainer.vue"
+import ProjectContainer from "../components/content/ProjectContainer.vue"
 import { ref, onBeforeMount, inject, computed, watch } from 'vue'
 import {useStore} from 'vuex'
 
@@ -35,7 +36,7 @@ export default {
   name: 'Home',
 
   components: {
-    ContentContainer,
+    ProjectContainer,
   },
 
   setup(){

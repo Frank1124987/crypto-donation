@@ -10,8 +10,10 @@ const db = getFirestore()
 export const readAccount = (uid) => {
     const path = "userAccountToEthereumId/" + uid
     getDoc(doc(db, path)).then((result) => {
+        console.log("wtwet", result.data())
         if( result.exists()){
             const data = result.data()
+            console.log(data)
             store.commit("setUserUId", uid)
             store.commit("setUserEthereumId", data.ethereumId)
             store.commit("setAddressInitial", data.addressInitial)

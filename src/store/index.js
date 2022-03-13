@@ -19,7 +19,6 @@ const store = createStore({
             return state.department
         },
         getDepartmentCount(state){
-            console.log("go fuck yourself", state.department)
             return state.department
         }
     },
@@ -63,7 +62,7 @@ const store = createStore({
             })
 
         },  
-        async fetchPlan({commit}, departmentId){
+        async fetchPlan({commit, state}, departmentId){
             commit("clearPlan")
             const names = await contract.methods.getPlan_names(departmentId).call()
             names.forEach(async name => {
@@ -72,6 +71,9 @@ const store = createStore({
                 temp["department"] = departmentId
                 commit("updatePlan", temp)
             })
+
+            console.log(state.plan)
+
         }   
     }
 })

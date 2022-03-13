@@ -1,11 +1,11 @@
 <template>
     <div class="block">
-        <h1>{{ title }}</h1>
-        <div :class="[classContainer]">
-            <ContentItem 
+        <h1 class="my-4">{{ title }}</h1>
+        <div class="row  row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5  overflow-scroll flex-nowrap">
+            <ProjectItem 
                 v-for="(item, id) in items" 
                 :key="id" 
-                :item="item.plan"
+                :project="item.plan"
                 :className="className" 
                 :urlName="urlName"
                 :departmentId = "item.department"
@@ -16,9 +16,9 @@
 
 <script>
 import { stringifyQuery } from 'vue-router'
-import ContentItem from "../content/ContentItem.vue"
+import ProjectItem from "./ProjectItem.vue"
 export default {
-    name: "ContentContainer",
+    name: "ProjectContainer",
 
     props: {
         items: {
@@ -46,18 +46,14 @@ export default {
     },
 
     components: {
-        ContentItem
+        ProjectItem
     }
 
 }
 </script>
 
-<style scoped>
-.container-donation-project {
-    display: flex;
-
-    overflow-x: auto;
-    flex-wrap: nowrap;
+<style lang="scss" scoped>
+.row {
     
     -ms-overflow-style: -ms-autohiding-scrollbar;
     scrollbar-width: none;

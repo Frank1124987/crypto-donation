@@ -101,6 +101,7 @@ export default {
         const auth = getAuth()
         onAuthStateChanged(auth, (user) => {
             if (user){
+                console.log(user.uid)
                 readAccount(user.uid)
             }else{
                 store.commit("clearAllUserId")
@@ -110,6 +111,7 @@ export default {
         onMounted(() => {
             onAuthStateChanged(auth, (user) => {
                 if (user){
+                    console.log("wtf")
                     readAccount(user.uid)
                 }else{
                     store.commit("clearAllUserId")
@@ -135,7 +137,9 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss">
+@import '@/style/bootstrapCustom.scss';
+
 #app {
     font-family: sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -155,8 +159,8 @@ body {
 }
 
 a, a:hover, a:focus, a:active {
-    text-decoration: none;
-    color: inherit;
+    text-decoration: none !important;
+    color: inherit !important;
 }
 
 .headtitle {

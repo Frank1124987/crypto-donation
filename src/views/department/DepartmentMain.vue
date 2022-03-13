@@ -34,18 +34,19 @@
                     </form>
                 </div>
                 <div>
-                    <h2>登記NFT</h2>
+                    <!-- <h2>登記NFT</h2>
                     <RegisterNFT
                         :plans="plans"
-                    />
+                    /> -->
                 </div>
             </div>
         </div>
         <br>
-        <!-- <div v-for="(plan, id) in plans" :key="id">
+        <div v-for="(plan, id) in plans" :key="id">
+            
             <Plan :plan="plan">
             </Plan>
-        </div> -->
+        </div>
     </div>
 </template>
 

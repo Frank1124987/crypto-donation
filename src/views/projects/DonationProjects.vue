@@ -25,13 +25,13 @@
 
 <script>
 import { inject, ref } from 'vue'
-import ContentItem from '/src/components/content/ContentItem.vue'
+import ProjectItem from '/src/components/content/ProjectItem.vue'
 import ProjectDonateChart from '/src/components/content/ProjectDonateChart.vue'
 import Filter from '/src/components/Filter.vue'
 
 export default ({
     components : {
-        ContentItem,
+        ProjectItem,
         ProjectDonateChart,
         Filter
     },

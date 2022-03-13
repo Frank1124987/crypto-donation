@@ -2,13 +2,13 @@
     <div class="plan">
         <div>
             <h2>
-                {{ plan.name}}
+                {{ plan.plan.name}}
             </h2>
             <h3>
-                {{ plan.description}}
+                {{ plan.plan.description}}
             </h3>
             <h3>
-                已募金額：{{ plan.accumulate }}
+                已募金額：{{ plan.plan.accumulate }}
             </h3>
             <form @submit.prevent="donate">
                 <p>使用者ID：{{ userId }} | 部門ID：{{ $route.params.departmentId }}</p>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {ref, computed} from 'vue'
+import {ref, computed, toRefs} from 'vue'
 import {useStore} from 'vuex'
 import {useRoute, useRouter} from 'vue-router'
 import {web3, contract} from '@/contract/contract.js'
@@ -45,7 +45,9 @@ export default{
         const route = useRoute()
         const router = useRouter()
 
-        const plan = ref(props.plan)
+        const {plan} = toRefs(props)
+        console.log(plan.value.plan.name)
+
         const donateAmount = ref(0)
         const withdrawAmount = ref(0)
 
@@ -65,8 +67,8 @@ export default{
             .catch(console.log)
             .finally( () => {
                 console.log("donating")
-                console.log(store.state.user.ethereumId, route.params.departmentId, plan.value.name)
-                contract.methods.donate(store.state.user.ethereumId, route.params.departmentId, plan.value.name).send({
+                console.log(store.state.user.ethereumId, route.params.departmentId, plan.value.plan.name)
+                contract.methods.donate(store.state.user.ethereumId, route.params.departmentId, plan.value.plan.name).send({
                     from: address[0],
                     gas : 9187500,
                     value: donateAmount.value
