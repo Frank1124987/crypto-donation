@@ -1,29 +1,70 @@
 <template>
-    <div class="register">
-        <h1>
-            Register
-        </h1>
+  <div class="container-login100 register" :style="{'background-image': 'url(' + require('../assets/bg-01.jpg') + ')'}">
+     <div class="login wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+           <!-- //!TODO: 註冊按鈕? 20220225 -->
+        <span class="login100-form-title p-b-30">部門註冊</span>
         <form @submit.prevent="register">
-            <div>
-                <label for="email">Email:</label>
-                <br>
-                <input type="text" id="email" v-model="email" name="email">
+            <div class="wrap-input100 validate-input m-b-23">
+                <!-- <span class="label-input100">Username</span> -->
+                <label class="label-input100" for="email">ID:</label>
+                <input class="input100" type="text"  id="email" v-model="email" name="email" placeholder="請輸入您的ID">
+				<span class="focus-input100" data-symbol="&#xf106;"></span>
             </div>
-            <br>
-            <div>
-                <label for="password">Password:</label>
-                <br>
-                <input type="password" id="password" v-model="password" name="password">
+            <div class="wrap-input100 validate-input m-b-23 ">
+                <!-- <span class="label-input100">Username</span> -->
+                <label class="label-input100" for="password">密碼:</label>
+                <input class="input100" type="text"  id="password" v-model="password" name="password" placeholder="請輸入您的密碼">
+				<span class="focus-input100" data-symbol="&#xf190;"></span>
             </div>
-            <div>
-                <label for="username">Username:</label>
-                <br>
-                <input type="text" id="username" v-model="username" name="username">
+            
+            <div class="wrap-input100 validate-input m-b-23">
+                <!-- <span class="label-input100">Username</span> -->
+                <label class="label-input100" for="address">部門名稱:</label>
+                <input class="input100" type="text"  id="address" v-model="address" name="address" placeholder="請輸入您的部門名稱">
+				<span class="focus-input100" data-symbol="&#xf175;"></span>
             </div>
-            <br>
-            <input type="submit" value="Submit">
+            <div class="wrap-input100 validate-input m-b-23">
+                <!-- <span class="label-input100">Username</span> -->
+                <label class="label-input100" for="address">地址:</label>
+                <input class="input100" type="text"  id="address" v-model="address" name="address" placeholder="請輸入您的部門地址">
+				<span class="focus-input100" data-symbol="&#xf173;"></span>
+            </div>
+            <div class="wrap-input100 validate-input m-b-23">
+                <!-- <span class="label-input100">Username</span> -->
+                <label class="label-input100" for="address">聯絡電話:</label>
+                <input class="input100" type="text"  id="address" v-model="address" name="address" placeholder="請輸入您的聯絡電話">
+				<span class="focus-input100" data-symbol="&#xf2b6;"></span>
+            </div>
+            
+            
+            <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                    <div class="login100-form-bgbtn"></div>
+                    <!-- <input type="submit" value="Submit"> -->
+                    <!-- //!TODO:  把BUTTON的連結加上去 -->
+                    <button type="submit" class="login100-form-btn" name="Login" value="Submit">
+                        註冊
+                    </button>
+                </div>
+            </div>
+
+            <div class="txt1 text-center p-t-54 p-b-20">
+                    <span>
+                        已有帳戶? 直接登入!
+                    </span>
+            </div>
+            <div class="container-login100-form-btn">
+                <div class="wrap-login50-form-btn">
+                    <div class="login100-form-smbtn"></div>
+                    <!-- <input type="submit" value="Submit"> -->
+                    <!-- //!TODO:  把BUTTON的連結加上去 -->
+                    <button type="submit" class="login100-form-btn" name="Login" value="Submit">
+                        <router-link id='routeLink' to="Login">登入</router-link>
+                    </button>
+                </div>
+            </div>
         </form>
-        <router-link to="Login">Login</router-link>
+    </div>
     </div>
 </template>
 
@@ -77,12 +118,300 @@ export default{
 }
 </script>
 
-<style scoped>
+<style scoped >
+.container-login100 {
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 form > input {
     margin: 1%;
 }
 
+.login {
+    text-align: center;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
 .register {
     text-align: center;
+}
+.wrap-login100 {
+    width: 500px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.p-r-55 {
+    padding-right: 55px;
+}
+.p-l-55 {
+    padding-left: 55px;
+}
+.p-b-54 {
+    padding-bottom: 54px;
+}
+.p-b-30 {
+    padding-bottom: 30px;
+}
+.p-b-45 {
+    padding-bottom: 54px;
+}
+.p-t-65 {
+    padding-top: 65px;
+}
+
+
+.login100-form-title {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #333333;
+    line-height: 1.2;
+    text-align: center;
+}
+.validate-input {
+    position: relative;
+}
+.wrap-input100 {
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid #d9d9d9;
+}
+.m-b-23 {
+    margin-bottom: 23px;
+}
+.label-input100 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #333333;
+    line-height: 2;
+    text-align: left;
+    display: block;
+}
+.input100 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    /* color: #333333; */
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    height: 55px;
+    /* background: transparent; */
+    padding: 0 7px 0 43px;
+    margin: 0;
+    border:0;
+    /* border-width: 0 0 2px 0; */
+    
+
+}
+.focus-input100 {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    margin: 0;
+    /* border-width: 0 0 2px 0; */
+}
+.focus-input100::after {
+    border: 0;
+    content: attr(data-symbol);
+    font-family: Material-Design-Iconic-Font;
+    color: #1241ff;
+    font-size: 22px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    /* height: calc(100% ); */
+    bottom: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    padding-left: 12px;
+    padding-bottom: 15px;
+    /* padding-top: 3px; */
+}
+
+
+.p-b-31 {
+    padding-bottom: 15px;
+}
+.p-t-8 {
+    padding-top: 8px;
+}
+.text-right {
+    text-align: right!important;
+}
+
+#routeLink {
+    font-size: 20px;
+    /* background-color: wheat; */
+    cursor: pointer;
+}
+
+#forgetPassword {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+
+
+.container-login100-form-btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wrap-login100-form-btn {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 5px 30px 0px rgb(3 216 222 / 20%);
+    -moz-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+    -webkit-box-shadow: 0 5px 30px 0px rgb(3 216 222 / 20%);
+    -o-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+    -ms-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+}
+.wrap-login50-form-btn {
+    width: 30%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 5px 30px 0px rgb(3 216 222 / 20%);
+    -moz-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+    -webkit-box-shadow: 0 5px 30px 0px rgb(3 216 222 / 20%);
+    -o-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+    -ms-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+}
+
+.login100-form-bgbtn {
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;
+    background: #a64bf4;
+    background: -webkit-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    background: -o-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    background: -moz-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    background: linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    top: 0;
+    left: -100%;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.login100-form-smbtn {
+    position: absolute;
+    z-index: -1;
+    width: 300%;
+    height: 100%;
+    background: hsl(223, 65%, 58%);
+    background: -webkit-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    background: -o-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    background: -moz-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    background: linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    top: 0;
+    left: -100%;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.login100-form-btn {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+}
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+
+.text-center {
+    text-align: center !important;
+}
+.txt1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #666666;
+}
+
+.p-b-20 {
+    padding-bottom: 20px;
+}
+
+.p-t-54 {
+    padding-top: 54px;
+}
+
+div div li:hover,
+div div li.router-link-active,
+div div li.router-link-exact-active {
+    background-color: indianred;
+    cursor: pointer;
 }
 </style>
